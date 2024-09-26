@@ -1,0 +1,6 @@
+[MESSAGES CONTROL]
+disable=C0114, C0116, C0103, E0015  # These disable specific warnings related to docstrings and naming
+; disable=too-few-public-methods
+
+[FORMAT]
+max-line-length=100  # Set the max line length
