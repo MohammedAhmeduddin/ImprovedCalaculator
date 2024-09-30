@@ -31,19 +31,31 @@ class Calculator:
         """Returns the quotient of two numbers. 
         Raises ZeroDivisionError if the second number is zero."""
         if b == 0:
-            raise ZeroDivisionError(
-                "Cannot divide by zero!"
-            )
+            raise ZeroDivisionError("Cannot divide by zero!")
         return a / b
 
     @classmethod
-    def add_calculation_to_history(cls, operation: str, a: float, b: float):
+    def add_calculation_to_history(cls, operation: str, a: float, b: float) -> Calculation:
         """
         Performs the given operation (add, subtract, multiply, divide), stores the result
         in the calculation history, and returns the calculation instance.
         """
-        result = getattr(cls, operation)(a, b)
+        # Use a dictionary to map operations to functions
+        operations = {
+            'add': cls.add,
+            'subtract': cls.subtract,
+            'multiply': cls.multiply,
+            'divide': cls.divide
+        }
+
+        # Error handling for invalid operations
+        if operation not in operations:
+            raise ValueError(f"Unsupported operation: {operation}")
+
+        # Perform the operation and create a Calculation instance
+        result = operations[operation](a, b)
         calc = Calculation(operation, a, b, result)
         History.add_to_history(calc)
         return calc
+
     
